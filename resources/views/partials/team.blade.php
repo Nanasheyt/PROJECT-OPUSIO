@@ -23,27 +23,27 @@
 .member.is-lead{--w:148px}
 .member:hover,.member:focus-within{z-index:6}
 .char{position:relative;width:100%;max-width:var(--w);padding-top:4px}
-.head{position:relative;z-index:2;display:grid;place-items:end center;width:70%;aspect-ratio:1/1;height:auto;margin:0 auto -19%;padding:0;border-radius:50%;border:3px solid var(--fg);background:var(--ph-bg);color:var(--ph-fg);overflow:hidden;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;touch-action:manipulation}
-.head img{width:100%;height:100%;object-fit:cover;display:block}
-.head svg{width:84%;height:84%;display:block}
-.head:focus-visible{outline:4px solid var(--ring);outline-offset:4px}
-.body{display:block;width:100%;height:auto;overflow:visible}
-.body .torso,.body .limb{fill:var(--bc);stroke:var(--fg);stroke-width:3}
-.body .hand{fill:#F3CDAE;stroke:var(--fg);stroke-width:3}
+.thead{position:relative;z-index:2;display:grid;place-items:end center;width:70%;aspect-ratio:1/1;height:auto;margin:0 auto -19%;padding:0;border-radius:50%;border:3px solid var(--fg);background:var(--ph-bg);color:var(--ph-fg);overflow:hidden;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;touch-action:manipulation}
+.thead img{width:100%;height:100%;object-fit:cover;display:block}
+.thead svg{width:84%;height:84%;display:block}
+.thead:focus-visible{outline:4px solid var(--ring);outline-offset:4px}
+.tfigure{display:block;width:100%;height:auto;overflow:visible}
+.tfigure .torso,.tfigure .limb{fill:var(--bc);stroke:var(--fg);stroke-width:3}
+.tfigure .hand{fill:#F3CDAE;stroke:var(--fg);stroke-width:3}
 .arm-r{transform-origin:135px 58px;transform:rotate(-8deg);transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
 /* Hand goes up while the head is hovered / focused (or briefly after a tap on touch screens) */
-.head:hover + .body .arm-r,.head:focus-visible + .body .arm-r,.char.wave .arm-r{transform:rotate(-150deg);animation:wave .7s ease-in-out .35s infinite alternate}
+.thead:hover + .tfigure .arm-r,.thead:focus-visible + .tfigure .arm-r,.char.wave .arm-r{transform:rotate(-150deg);animation:wave .7s ease-in-out .35s infinite alternate}
 @keyframes wave{to{transform:rotate(-126deg)}}
 @media (max-width:900px){.team-row{gap:var(--s3) var(--s3)}.member{--w:96px}.member.is-lead{--w:116px}.mname{font-size:.8125rem}.member.is-lead .mname{font-size:.9375rem}.mrole{font-size:.625rem;padding:2px 8px}}
 @media (max-width:640px){.team-row{flex-wrap:wrap;row-gap:var(--s6)}.member{--w:104px;flex:0 0 calc(33.333% - var(--s3));max-width:none}.member.is-lead{--w:132px;flex:0 0 100%}}
-@media (hover:hover){.head:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(21,15,74,.22)}}
-@media (prefers-reduced-motion:reduce){.arm-r{transition:none}.head:hover + .body .arm-r,.head:focus-visible + .body .arm-r,.char.wave .arm-r{animation:none}}
+@media (hover:hover){.thead:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(21,15,74,.22)}}
+@media (prefers-reduced-motion:reduce){.arm-r{transition:none}.thead:hover + .tfigure .arm-r,.thead:focus-visible + .tfigure .arm-r,.char.wave .arm-r{animation:none}}
 .mname{margin-top:var(--s3);font-weight:800;font-size:.9375rem;line-height:1.25;overflow-wrap:anywhere}
 .member.is-lead .mname{font-size:1.0625rem}
 .mname.is-blank{color:var(--muted-fg)}
 .mrole{margin-top:6px;display:inline-block;padding:2px 12px;border-radius:99px;font-size:.6875rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border:1.5px solid var(--fg)}
 .member.is-lead .mrole{background:var(--accent);color:var(--on-accent)}
-.team dialog{width:min(460px,calc(100vw - 32px))}
+.team dialog{width:min(460px,calc(100vw - 32px));text-align:left}
 .mdlg-top{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s4)}
 .mdlg-top h3{font-size:1.25rem;font-weight:800;margin-bottom:6px;overflow-wrap:anywhere}
 .mav{width:76px;height:76px;border-radius:50%;border:3px solid var(--fg);background:var(--ph-bg);color:var(--ph-fg);display:grid;place-items:end center;overflow:hidden;flex-shrink:0}
@@ -63,7 +63,7 @@
 (function () {
     var team = document.getElementById('team');
     if (!team) return;
-    team.querySelectorAll('.head').forEach(function (btn) {
+    team.querySelectorAll('.thead').forEach(function (btn) {
         var dlg = document.getElementById(btn.getAttribute('aria-controls')), char = btn.closest('.char');
         btn.addEventListener('click', function () {
             char.classList.add('wave');

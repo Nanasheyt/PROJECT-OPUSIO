@@ -1,6 +1,6 @@
 {{-- Interactive behaviour shared by the portfolio templates (reveal on scroll, animated bars, copy email, back to top). --}}
 <style>
-.pi-cp{margin-left:8px;font:inherit;font-size:.75em;line-height:1;color:inherit;background:transparent;border:1px solid currentColor;border-radius:99px;padding:6px 12px;min-height:32px;cursor:pointer;vertical-align:middle;opacity:.9;touch-action:manipulation}
+.pi-cp{white-space:nowrap;margin-left:8px;font:inherit;font-size:.75em;line-height:1;color:inherit;background:transparent;border:1px solid currentColor;border-radius:99px;padding:6px 12px;min-height:32px;cursor:pointer;vertical-align:middle;opacity:.9;touch-action:manipulation}
 .pi-cp:hover{opacity:1;background:rgba(127,127,127,.18)}.pi-cp:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 .pi-top{position:fixed;right:16px;bottom:16px;z-index:60;width:48px;height:48px;border-radius:50%;border:2px solid var(--pi-fg,#222);background:var(--pi-bg,#fff);color:var(--pi-fg,#222);display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
 .pi-top[hidden]{display:none}.pi-top svg{transform:rotate(-90deg)}.pi-top:active{transform:scale(.94)}

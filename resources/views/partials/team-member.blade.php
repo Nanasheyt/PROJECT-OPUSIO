@@ -13,7 +13,7 @@
 @endphp
 <li class="member {{ $lead ? 'is-lead' : '' }}">
     <div class="char" style="--bc: {{ $color }}">
-        <button type="button" class="head" aria-haspopup="dialog" aria-controls="{{ $id }}"
+        <button type="button" class="thead" aria-haspopup="dialog" aria-controls="{{ $id }}"
                 aria-label="Open the info of {{ $name }}, {{ $role }}">
             @if ($photo)
                 <img src="{{ $photo }}" alt="" loading="lazy" decoding="async">
@@ -21,7 +21,7 @@
                 <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="38" r="19" fill="currentColor"/><path d="M10 100c0-26 18-40 40-40s40 14 40 40z" fill="currentColor"/></svg>
             @endif
         </button>
-        <svg class="body" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+        <svg class="tfigure" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
             <g transform="rotate(8 25 58)"><rect x="14" y="58" width="22" height="58" rx="11" class="limb"/><circle cx="25" cy="112" r="12" class="hand"/></g>
             <path d="M36 120V64C36 42 54 28 80 28s44 14 44 36v56z" class="torso"/>
             <g class="arm-r"><rect x="124" y="58" width="22" height="58" rx="11" class="limb"/><circle cx="135" cy="112" r="12" class="hand"/></g>

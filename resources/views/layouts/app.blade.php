@@ -184,7 +184,8 @@
         .join{position:absolute!important;right:8%;top:84px;width:128px;height:128px;display:grid;place-items:center;text-decoration:none;color:#150F4A;transform:rotate(-4deg);transition:transform .2s}
         .join:hover{transform:rotate(4deg) scale(1.05)}
         .join svg{position:absolute;inset:0;width:100%;height:100%;fill:#F8E27A}
-        .join span{position:relative;font-weight:800;font-size:.9375rem;line-height:1.15;text-transform:uppercase;text-align:left;max-width:5ch}
+        .join span.sr{position:absolute;width:1px;height:1px;max-width:none;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+        .join span:not(.sr){position:relative;font-weight:800;font-size:.9375rem;line-height:1.15;text-transform:uppercase;text-align:left;max-width:5ch}
         .stats{width:100%;position:relative;z-index:2;margin-top:auto;display:grid;grid-template-columns:1fr minmax(260px,320px) 1fr;align-items:end;gap:var(--s5);padding-top:var(--s7)}
         .statcard{background:#2B2BE8;color:#fff;text-align:left;padding:var(--s6) var(--s5) var(--s7);min-height:220px}
         .statcard b{display:block;font:400 clamp(3.5rem,7vw,5.25rem)/1 var(--disp);color:#F8E27A}

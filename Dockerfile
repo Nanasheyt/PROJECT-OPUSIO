@@ -6,10 +6,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends libpq-dev libzi
     && a2enmod rewrite headers \
     && rm -rf /var/lib/apt/lists/*
 
-# Apache must use exactly one MPM; mod_php needs prefork (docker/start.sh repeats this at start-up)
-RUN a2dismod -f mpm_event mpm_worker || true
-RUN a2enmod mpm_prefork || true
-
 # allow photo uploads up to 5 MB
 RUN { echo 'upload_max_filesize=6M'; echo 'post_max_size=64M'; echo 'max_file_uploads=20'; echo 'memory_limit=512M'; } > /usr/local/etc/php/conf.d/uploads.ini
 
