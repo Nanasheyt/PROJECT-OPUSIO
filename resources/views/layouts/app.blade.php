@@ -348,6 +348,11 @@
         .btn.ghost.login{background:var(--sky);border-color:var(--fg);color:#150F4A}
         .btn.ghost.login:hover{background:var(--sky);filter:brightness(1.08)}
         :root[data-theme=dark] .btn.ghost.login{border-color:var(--sky)}
+        /* Preview toolbar: template tabs + action buttons stay in ONE row (scrolls sideways on narrow screens instead of wrapping) */
+        .tbar{flex-wrap:nowrap;gap:var(--s2);overflow-x:auto;scrollbar-width:thin}
+        .tbar .tabs,.tbar .actions{flex-wrap:nowrap;flex:0 0 auto;gap:var(--s2)}
+        .tbar form{margin:0}
+        .tbar .tabs a,.tbar .btn{white-space:nowrap;min-height:40px;padding:0 14px;font-size:.8125rem}
         @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.ld-mark i{transform:scaleY(.7)!important}}
     </style>
 </head>
