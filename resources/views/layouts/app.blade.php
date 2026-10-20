@@ -340,7 +340,14 @@
         }
         @media (max-width:640px){.g2{grid-template-columns:1fr}.wrap{padding:var(--s5) var(--s4) var(--s7)}.card{padding:var(--s4)}.band{padding:var(--s7) var(--s4) 0}.cta-band{margin:var(--s7) var(--s4)}
             .foot{padding:var(--s6) var(--s4) var(--s4)}.foot-in{grid-template-columns:1fr}.facts{padding:0 var(--s4)}
-            .sheet{width:100%}.b2,.b3{display:none}}
+            .sheet{width:100%}.b2,.b3{display:none}
+            /* badge: smaller, tucked into the top-right corner so it no longer covers the "Portfolio platform" pill */
+            .join{top:-14px;right:2%;width:80px;height:80px;transform:rotate(8deg)}.join span:not(.sr){font-size:.6875rem}
+            .hero-top .pill{margin-top:72px;font-size:.75rem;padding:8px 14px}}
+        /* hero Log in button: coloured instead of plain outline */
+        .hero .actions .btn.ghost{background:var(--sky);border-color:var(--fg);color:#150F4A}
+        .hero .actions .btn.ghost:hover{background:var(--sky);filter:brightness(1.08)}
+        :root[data-theme=dark] .hero .actions .btn.ghost{border-color:var(--sky)}
         @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.ld-mark i{transform:scaleY(.7)!important}}
     </style>
 </head>

@@ -3,8 +3,8 @@ FROM php:8.3-apache
 # System deps + PHP extensions commonly needed by Laravel
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
-        libonig-dev libxml2-dev libpq-dev libicu-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+        libonig-dev libxml2-dev libpq-dev libicu-dev libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring zip gd bcmath intl exif pcntl opcache \
     && rm -rf /var/lib/apt/lists/*
 

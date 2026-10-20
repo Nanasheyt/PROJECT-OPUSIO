@@ -251,7 +251,9 @@ class PortfolioController extends Controller
 
         $img = @imagecreatefromstring(base64_decode($m[2]));
         if (! $img) {
-            return null;
+            // GD could not decode it (e.g. a WebP on a server without WebP support):
+            // JPEG/PNG still work as they are, so keep them instead of dropping the picture.
+            return in_array($m[1], ['image/jpeg', 'image/png'], true) ? $dataUri : null;
         }
 
         $w = imagesx($img);
@@ -530,7 +532,9 @@ class PortfolioController extends Controller
 
         $img = @imagecreatefromstring(base64_decode($m[2]));
         if (! $img) {
-            return null;
+            // GD could not decode it (e.g. a WebP on a server without WebP support):
+            // JPEG/PNG still work as they are, so keep them instead of dropping the picture.
+            return in_array($m[1], ['image/jpeg', 'image/png'], true) ? $dataUri : null;
         }
 
         $w = imagesx($img);
