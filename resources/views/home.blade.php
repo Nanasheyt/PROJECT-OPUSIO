@@ -101,7 +101,7 @@ html:not(.js) .sc-tabs{display:none}
                 @auth
                     <a class="btn ghost lg" href="{{ route('portfolios.index') }}">Manage portfolios</a>
                 @else
-                    <a class="btn ghost lg" href="{{ route('login') }}">Log in</a>
+                    <a class="btn ghost login lg" href="{{ route('login') }}">Log in</a>
                 @endauth
             </div>
         </div>

@@ -344,10 +344,10 @@
             /* badge: smaller, tucked into the top-right corner so it no longer covers the "Portfolio platform" pill */
             .join{top:-14px;right:2%;width:80px;height:80px;transform:rotate(8deg)}.join span:not(.sr){font-size:.6875rem}
             .hero-top .pill{margin-top:72px;font-size:.75rem;padding:8px 14px}}
-        /* hero Log in button: coloured instead of plain outline */
-        .hero .actions .btn.ghost{background:var(--sky);border-color:var(--fg);color:#150F4A}
-        .hero .actions .btn.ghost:hover{background:var(--sky);filter:brightness(1.08)}
-        :root[data-theme=dark] .hero .actions .btn.ghost{border-color:var(--sky)}
+        /* Log in buttons (top bar + hero): coloured instead of a plain outline */
+        .btn.ghost.login{background:var(--sky);border-color:var(--fg);color:#150F4A}
+        .btn.ghost.login:hover{background:var(--sky);filter:brightness(1.08)}
+        :root[data-theme=dark] .btn.ghost.login{border-color:var(--sky)}
         @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.ld-mark i{transform:scaleY(.7)!important}}
     </style>
 </head>
@@ -388,7 +388,7 @@
                         <button type="submit" class="btn ghost sm" title="Logged in as {{ auth()->user()->name }}"><x-icon name="user" :size="16" /> Log out</button>
                     </form>
                 @else
-                    <a class="btn ghost sm" href="{{ route('login') }}" @if (request()->routeIs('login')) aria-current="page" @endif>Log in</a>
+                    <a class="btn ghost login sm" href="{{ route('login') }}" @if (request()->routeIs('login')) aria-current="page" @endif>Log in</a>
                     <a class="btn sm" href="{{ route('register') }}" @if (request()->routeIs('register')) aria-current="page" @endif>Sign up</a>
                 @endauth
             </div>
