@@ -26,14 +26,19 @@
             </div>
         </div>
 
-        <div class="actions" style="margin-top:var(--s5)">
-            <a class="btn" href="{{ route('portfolios.show', $portfolio) }}" target="_blank" rel="noopener"><x-icon name="external" :size="16" /> Open my portfolio<span class="sr"> (new tab)</span></a>
-            <a class="btn ghost" href="{{ route('portfolios.pdf', $portfolio) }}"><x-icon name="download" :size="16" /> Download PDF</a>
-            <a class="btn ghost" href="{{ route('portfolios.edit', $portfolio) }}"><x-icon name="pencil" :size="16" /> Edit</a>
-        </div>
-        <div class="actions" style="margin-top:var(--s3)">
-            <a class="btn cta" href="{{ route('portfolios.index') }}">Go to Manage portfolios <x-icon name="arrow" /></a>
-            <a class="btn ghost" href="{{ route('portfolios.create') }}"><x-icon name="plus" :size="16" /> Create another</a>
+        {{-- All five buttons share the same height and shape; each row fills the full width --}}
+        <style>
+            .sact{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3);margin-top:var(--s5)}
+            .sact .btn{width:100%;min-height:52px;padding:0 var(--s4);white-space:nowrap}
+            .sact .b3{grid-column:span 2}.sact .b2{grid-column:span 3}
+            @media (max-width:640px){.sact{grid-template-columns:1fr}.sact .b3,.sact .b2{grid-column:auto}}
+        </style>
+        <div class="sact">
+            <a class="btn b3" href="{{ route('portfolios.show', $portfolio) }}" target="_blank" rel="noopener"><x-icon name="external" :size="16" /> Open my portfolio<span class="sr"> (new tab)</span></a>
+            <a class="btn ghost b3" href="{{ route('portfolios.pdf', $portfolio) }}"><x-icon name="download" :size="16" /> Download PDF</a>
+            <a class="btn ghost b3" href="{{ route('portfolios.edit', $portfolio) }}"><x-icon name="pencil" :size="16" /> Edit</a>
+            <a class="btn cta b2" href="{{ route('portfolios.index') }}">Go to Manage portfolios <x-icon name="arrow" /></a>
+            <a class="btn ghost b2" href="{{ route('portfolios.create') }}"><x-icon name="plus" :size="16" /> Create another</a>
         </div>
     </div>
 </div>
