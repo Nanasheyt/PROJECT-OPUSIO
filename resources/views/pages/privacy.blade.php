@@ -4,7 +4,8 @@
 <div class="head"><div><h1>Privacy and data</h1><p class="sub">What Opusio stores, where it lives and how to remove it.</p></div></div>
 <div class="prose">
     <h2>What is stored</h2>
-    <p>Only what you type into the portfolio form is saved:</p>
+    <p>Your account: your name, email and password. The password is stored encrypted (hashed), never as plain text.</p>
+    <p>And what you type into the portfolio form:</p>
     <ul>
         <li>Your name, professional title, email, phone number, address and the "About me" text.</li>
         <li>Optionally, your profile photo (a resized copy is stored in the database).</li>
@@ -17,7 +18,7 @@
     <p>Everything is kept in a PostgreSQL database hosted on Supabase. The tables are protected with Row Level Security, so they cannot be read through Supabase's public API key. The application connects with its own database credentials.</p>
 
     <h2>Who can see it</h2>
-    <p>A portfolio is visible to anyone who has its link. This version has no login, so the Manage page lists every portfolio on the site. Only enter details you are happy to share, and delete your portfolio when you no longer need it.</p>
+    <p>Your Manage page, the edit forms and the PDF download are private: you must be logged in with the account that created the portfolio. The finished portfolio page is public to anyone who has its link, and it is view-only. Only enter details you are happy to share, and delete a portfolio when you no longer need it.</p>
 
     <h2>Cookies and browser storage</h2>
     <ul>

@@ -6,11 +6,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends libpq-dev libzi
     && a2enmod rewrite headers \
     && rm -rf /var/lib/apt/lists/*
 
-# mod_php needs the prefork MPM, and Apache aborts with "AH00534: More than one MPM loaded"
-# if any other MPM is enabled. Set it right in the image; docker/start.sh re-checks on every
-# start because Railway can bring the extra MPMs back at runtime.
-RUN for m in mpm_event mpm_worker mpm_itk; do a2dismod "$m" >/dev/null 2>&1 || true; done; a2enmod mpm_prefork
-
 # allow photo uploads up to 5 MB
 RUN { echo 'upload_max_filesize=6M'; echo 'post_max_size=64M'; echo 'max_file_uploads=20'; echo 'memory_limit=512M'; } > /usr/local/etc/php/conf.d/uploads.ini
 
@@ -23,8 +18,6 @@ WORKDIR /var/www/html
 COPY . .
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts \
     && php artisan package:discover --ansi || true
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && sed -i 's/\r$//' docker/start.sh docker/fix-mpm.sh \
-    && chmod +x docker/start.sh docker/fix-mpm.sh
+RUN chown -R www-data:www-data storage bootstrap/cache && chmod +x docker/start.sh
 
 CMD ["docker/start.sh"]

@@ -38,7 +38,7 @@
 @media (max-width:640px){.team-row{flex-wrap:wrap;row-gap:var(--s6)}.member{--w:104px;flex:0 0 calc(33.333% - var(--s3));max-width:none}.member.is-lead{--w:132px;flex:0 0 100%}}
 @media (hover:hover){.thead:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(21,15,74,.22)}}
 @media (prefers-reduced-motion:reduce){.arm-r{transition:none}.thead:hover + .tfigure .arm-r,.thead:focus-visible + .tfigure .arm-r,.char.wave .arm-r{animation:none}}
-.mname{margin-top:var(--s3);font-weight:800;font-size:.9375rem;line-height:1.25;overflow-wrap:anywhere}
+.mname{margin-top:var(--s3);font-weight:800;font-size:.9375rem;line-height:1.25;overflow-wrap:anywhere;min-height:calc(2 * 1.25em)}
 .member.is-lead .mname{font-size:1.0625rem}
 .mname.is-blank{color:var(--muted-fg)}
 .mrole{margin-top:6px;display:inline-block;padding:2px 12px;border-radius:99px;font-size:.6875rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border:1.5px solid var(--fg)}

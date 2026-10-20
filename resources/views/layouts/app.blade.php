@@ -114,7 +114,11 @@
         .field{margin:0}
         label{display:block;font-weight:700;font-size:.875rem;margin-bottom:6px}
         .req{color:var(--danger);margin-left:2px}
-        input[type=text],input[type=email],input[type=url],input[type=file],select,textarea{width:100%;min-height:48px;padding:11px var(--s4);border:1.5px solid var(--border);border-radius:14px;font:inherit;background:var(--card);color:var(--fg);transition:border-color .2s}
+        input[type=text],input[type=email],input[type=password],input[type=url],input[type=file],select,textarea{width:100%;min-height:48px;padding:11px var(--s4);border:1.5px solid var(--border);border-radius:14px;font:inherit;background:var(--card);color:var(--fg);transition:border-color .2s}
+        .pw-wrap{position:relative}.pw-wrap input{padding-right:52px}
+        .pw-toggle{position:absolute;top:0;right:4px;height:48px;width:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;border-radius:99px;color:var(--muted-fg);cursor:pointer}
+        .pw-toggle:hover{color:var(--fg)}.pw-toggle:focus-visible{outline:3px solid var(--ring);outline-offset:-3px}
+        .pw-toggle span{display:inline-flex}.pw-toggle [hidden]{display:none}
         input[type=file]{padding:9px var(--s3)}
         textarea{resize:vertical;line-height:1.5}
         input:hover,select:hover,textarea:hover{border-color:var(--fg)}
@@ -164,9 +168,10 @@
         .frame{width:100%;border:1.5px solid var(--hair);border-top:0;border-radius:0 0 var(--r) var(--r);display:block;height:78vh;min-height:560px;background:#fff}
 
         /* ---------- Home ---------- */
-        .hero{position:relative;text-align:center;padding:var(--s6) var(--s6) 0;min-height:820px;display:flex;flex-direction:column;align-items:center}
-        .hero>*{position:relative;z-index:1}
-        .hero>.stripes{position:absolute;z-index:0}
+        .hero{position:relative;text-align:center;padding:0 var(--s6) var(--s7)}
+        .hero-top{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;padding:var(--s6) 0 var(--s7)}
+        .hero-top>*{position:relative;z-index:1}
+        .hero-top>.stripes{position:absolute;z-index:0;border-radius:0 0 24px 24px;overflow:hidden}
         .gridbg{position:absolute!important;left:50%;top:70px;width:min(78%,860px);height:440px;transform:translateX(-50%) perspective(800px) rotateX(38deg) rotateZ(-5deg);z-index:0!important;pointer-events:none;
             background-image:linear-gradient(var(--grid) 2px,transparent 2px),linear-gradient(90deg,var(--grid) 2px,transparent 2px);background-size:70px 70px;
             -webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent 100%);mask-image:radial-gradient(closest-side,#000 40%,transparent 100%)}
@@ -181,16 +186,13 @@
         .b3{right:14%;top:410px;width:82px;height:82px;background:var(--lav)}
         .arrow{position:absolute!important;width:90px;height:190px;fill:none;stroke:var(--salmon);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:5 7}
         .a1{left:7%;top:230px}.a2{right:8%;top:225px;transform:rotate(180deg)}
-        .join{position:absolute!important;right:8%;top:84px;width:128px;height:128px;display:grid;place-items:center;text-decoration:none;color:#150F4A;transform:rotate(-4deg);transition:transform .2s}
+        .join{position:absolute!important;z-index:5!important;right:6%;top:16px;width:128px;height:128px;display:grid;place-items:center;text-decoration:none;color:#150F4A;transform:rotate(-4deg);transition:transform .2s}
         .join:hover{transform:rotate(4deg) scale(1.05)}
         .join svg{position:absolute;inset:0;width:100%;height:100%;fill:#F8E27A}
         .join span.sr{position:absolute;width:1px;height:1px;max-width:none;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-        .join span:not(.sr){position:relative;font-weight:800;font-size:.9375rem;line-height:1.15;text-transform:uppercase;text-align:left;max-width:5ch}
-        .stats{width:100%;position:relative;z-index:2;margin-top:auto;display:grid;grid-template-columns:1fr minmax(260px,320px) 1fr;align-items:end;gap:var(--s5);padding-top:var(--s7)}
-        .statcard{background:#2B2BE8;color:#fff;text-align:left;padding:var(--s6) var(--s5) var(--s7);min-height:220px}
-        .statcard b{display:block;font:400 clamp(3.5rem,7vw,5.25rem)/1 var(--disp);color:#F8E27A}
-        .statcard p{margin-top:var(--s3);font-size:1rem;max-width:26ch}
-        .stat-side{padding-bottom:var(--s7);display:grid;gap:var(--s4);justify-items:center;text-align:center}
+        .join span:not(.sr){position:relative;font-weight:800;font-size:.9375rem;line-height:1.15;text-transform:uppercase;text-align:center;max-width:none}
+        .stats{width:100%;max-width:880px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:var(--s6)}
+        .stat-side{display:grid;gap:var(--s4);justify-items:center;text-align:center}
         .stat-side .say{max-width:28ch;font-size:1rem;font-weight:500}
         .names{font:400 1.0625rem var(--disp);text-transform:uppercase;display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center}
         .dots{display:flex;gap:6px}.dots i{width:14px;height:14px;border-radius:50%}.dots i:nth-child(1){background:var(--accent)}.dots i:nth-child(2){background:var(--salmon)}.dots i:nth-child(3){background:var(--sky)}
@@ -269,6 +271,21 @@
         @keyframes ldBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
         .ld-text{margin-top:var(--s4);font:400 1.5rem var(--disp);text-transform:uppercase;letter-spacing:.02em}
 
+        /* ---------- Accounts ---------- */
+        .nav-out{margin:0}
+        .auth-wrap{max-width:460px;margin:var(--s6) auto 0}
+        .auth-wrap h1{margin-bottom:var(--s2)}
+        .auth-wrap .stack>*+*{margin-top:var(--s4)}
+        .auth-note{display:flex;gap:var(--s3);align-items:flex-start;background:var(--muted);border-radius:14px;padding:var(--s3) var(--s4);color:var(--muted-fg);font-size:.875rem;margin-top:var(--s5)}
+        .auth-alt{text-align:center;margin-top:var(--s5);color:var(--muted-fg)}
+        .share-box{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center}
+        .share-box input{flex:1;min-width:220px}
+        .saved-grid{display:grid;grid-template-columns:240px 1fr;gap:var(--s6);align-items:start}
+        .saved-photo{aspect-ratio:1/1;width:100%;border-radius:var(--r);border:1.5px solid var(--hair);overflow:hidden;background:var(--ph-bg);color:var(--ph-fg);display:grid;place-items:end center}
+        .saved-photo img{width:100%;height:100%;object-fit:cover;display:block}.saved-photo svg{width:80%;height:80%}
+        .tick{width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;margin-bottom:var(--s4)}
+        @media (max-width:760px){.saved-grid{grid-template-columns:1fr}.saved-photo{max-width:220px}}
+
         /* Dialog + footer */
         dialog{border:1.5px solid var(--fg);border-radius:var(--r);padding:var(--s5);max-width:min(440px,calc(100vw - 32px));background:var(--card);color:var(--fg);box-shadow:0 20px 50px rgba(0,0,0,.3)}
         dialog::backdrop{background:rgba(21,15,74,.65)}
@@ -316,10 +333,10 @@
             .nav{height:auto;padding:var(--s3) 0}.nav>.stripes{display:none}
             .nav-in{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);padding:0 var(--s4)}.cell{display:contents}
             .brand{order:1}.nav-act{order:2;margin-left:auto}.nav ul{order:3}
-            .hero{padding:var(--s5) var(--s4) 0;min-height:0}.gridbg{top:40px;height:320px}
+            .hero{padding:0 var(--s4) var(--s6)}.hero-top{padding-top:var(--s5)}.gridbg{top:40px;height:320px}
             .b1{top:40px;width:64px;height:64px}.b2{top:auto;bottom:260px;left:4%}.b3{top:auto;bottom:300px;right:4%;width:64px;height:64px}
             .join{top:12px;right:3%;width:96px;height:96px}.join span{font-size:.75rem}
-            .foot-in{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr;padding-top:var(--s6)}.statcard{order:-1}.stat-side{padding-bottom:var(--s5)}
+            .foot-in{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}
         }
         @media (max-width:640px){.g2{grid-template-columns:1fr}.wrap{padding:var(--s5) var(--s4) var(--s7)}.card{padding:var(--s4)}.band{padding:var(--s7) var(--s4) 0}.cta-band{margin:var(--s7) var(--s4)}
             .foot{padding:var(--s6) var(--s4) var(--s4)}.foot-in{grid-template-columns:1fr}.facts{padding:0 var(--s4)}
@@ -349,13 +366,24 @@
             <ul>
                 <li><a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About</a></li>
                 <li><a href="{{ route('faq') }}" @if (request()->routeIs('faq')) aria-current="page" @endif>FAQ</a></li>
-                <li><a href="{{ route('portfolios.index') }}" @if (request()->routeIs('portfolios.index')) aria-current="page" @endif>Manage</a></li>
+                @auth
+                    <li><a href="{{ route('portfolios.index') }}" @if (request()->routeIs('portfolios.index')) aria-current="page" @endif>Manage</a></li>
+                @endauth
             </ul>
             <div class="nav-act">
                 <button type="button" class="round" id="theme-toggle" aria-pressed="false" aria-label="Dark mode" title="Switch between light and dark mode">
                     <x-icon name="moon" class="i-moon" /><x-icon name="sun" class="i-sun" />
                 </button>
-                <a class="round blue" href="{{ route('portfolios.create') }}" aria-label="Create portfolio" title="Create portfolio" @if (request()->routeIs('portfolios.create')) aria-current="page" @endif><x-icon name="plus" /></a>
+                @auth
+                    <a class="round blue" href="{{ route('portfolios.create') }}" aria-label="Create portfolio" title="Create portfolio" @if (request()->routeIs('portfolios.create')) aria-current="page" @endif><x-icon name="plus" /></a>
+                    <form method="POST" action="{{ route('logout') }}" class="nav-out">
+                        @csrf
+                        <button type="submit" class="btn ghost sm" title="Logged in as {{ auth()->user()->name }}"><x-icon name="user" :size="16" /> Log out</button>
+                    </form>
+                @else
+                    <a class="btn ghost sm" href="{{ route('login') }}" @if (request()->routeIs('login')) aria-current="page" @endif>Log in</a>
+                    <a class="btn sm" href="{{ route('register') }}" @if (request()->routeIs('register')) aria-current="page" @endif>Sign up</a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -522,6 +550,19 @@
         hero.addEventListener('pointerleave', function () { hero.style.setProperty('--px', 0); hero.style.setProperty('--py', 0); });
     }
 
+    /* Fields that accept letters only (name, professional title): digits and symbols are removed as you type */
+    document.querySelectorAll('[data-letters]').forEach(function (inp) {
+        var note = document.getElementById(inp.id + '-note'), re = /[^\p{L}\s.,'’\-]/gu;
+        inp.addEventListener('input', function () {
+            var clean = inp.value.replace(re, '');
+            if (clean !== inp.value) {
+                var pos = inp.selectionStart - (inp.value.length - clean.length);
+                inp.value = clean; try { inp.setSelectionRange(pos, pos); } catch (e) {}
+                if (note) note.hidden = false;
+            } else if (note) note.hidden = true;
+        });
+    });
+
     /* Back to top */
     var top = document.getElementById('totop');
     addEventListener('scroll', function () { top.hidden = window.scrollY < 700; }, { passive: true });
@@ -542,5 +583,19 @@
 })();
 </script>
 @stack('scripts')
+<script>
+document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-pw-toggle]');
+    if (!b) return;
+    var input = document.getElementById(b.getAttribute('data-pw-toggle'));
+    if (!input) return;
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    b.setAttribute('aria-pressed', show ? 'true' : 'false');
+    b.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    b.querySelector('.pw-show').hidden = show;
+    b.querySelector('.pw-hide').hidden = !show;
+});
+</script>
 </body>
 </html>

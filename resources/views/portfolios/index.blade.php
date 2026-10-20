@@ -26,9 +26,8 @@
                 <span class="upd">Updated {{ $p->updated_at->diffForHumans() }}</span>
             </div>
             <div class="acts">
-                <a class="btn sm full" href="{{ route('portfolios.preview', $p) }}" aria-label="View portfolio of {{ $p->full_name }}"><x-icon name="eye" :size="16" /> View</a>
+                <a class="btn sm full" href="{{ route('portfolios.saved', $p) }}" aria-label="View portfolio of {{ $p->full_name }}"><x-icon name="eye" :size="16" /> View</a>
                 <a class="btn sm ghost" href="{{ route('portfolios.edit', $p) }}" aria-label="Edit portfolio of {{ $p->full_name }}"><x-icon name="pencil" :size="16" /> Edit</a>
-                <a class="btn sm ghost" href="{{ route('portfolios.templates', $p) }}" aria-label="Change template for {{ $p->full_name }}"><x-icon name="layout" :size="16" /> Template</a>
                 <a class="btn sm ghost" href="{{ route('portfolios.pdf', $p) }}" aria-label="Download PDF of {{ $p->full_name }}"><x-icon name="download" :size="16" /> PDF</a>
                 <form method="POST" action="{{ route('portfolios.destroy', $p) }}"
                       data-confirm="The portfolio of {{ $p->full_name }} and all its details will be permanently removed." data-confirm-title="Delete this portfolio?">

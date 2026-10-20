@@ -6,11 +6,9 @@
 /* ---- Hero ribbon on small screens: stays behind the headline block instead of running through the stats ---- */
 .hero .lead{background:var(--bg);padding:6px 16px;border-radius:14px}
 .hero-main{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center}
-.hero-main>.stripes-m{display:none}
 @media (max-width:900px){
     .hero .b2,.hero .b3{display:none}
-    .hero>.stripes{display:none}
-    .hero-main>.stripes-m{display:flex;position:absolute;left:50%;top:0;bottom:-6px;width:40px;transform:translateX(-50%);z-index:-1;border-radius:20px;overflow:hidden}
+    .hero-top>.stripes{border-radius:24px}
 }
 /* ---- More design: dividers, colourful cards, stickers, template showcase ---- */
 .band{position:relative}
@@ -79,28 +77,33 @@ html:not(.js) .sc-tabs{display:none}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="scallop" viewBox="0 0 140 140"><path d="M135.5 70.0 L135.2 71.6 L134.2 73.1 L132.7 74.6 L130.9 75.9 L128.9 77.2 L127.0 78.3 L125.3 79.4 L124.0 80.6 L123.2 81.8 L123.1 83.1 L123.5 84.6 L124.3 86.2 L125.4 88.0 L126.7 90.0 L127.9 92.0 L128.9 94.0 L129.4 95.9 L129.3 97.6 L128.7 99.0 L127.4 100.1 L125.7 101.0 L123.6 101.5 L121.3 101.9 L119.0 102.1 L116.8 102.3 L114.9 102.7 L113.5 103.2 L112.5 104.1 L112.0 105.4 L111.8 107.1 L112.0 109.0 L112.3 111.3 L112.6 113.6 L112.7 115.9 L112.5 118.0 L112.0 119.8 L111.0 121.1 L109.6 121.9 L107.9 122.1 L105.9 122.0 L103.7 121.4 L101.4 120.6 L99.3 119.8 L97.3 119.2 L95.6 118.8 L94.2 118.9 L93.0 119.5 L92.1 120.7 L91.3 122.3 L90.6 124.3 L89.9 126.5 L89.1 128.7 L88.1 130.7 L87.0 132.3 L85.6 133.4 L84.1 133.9 L82.5 133.8 L80.8 133.0 L79.0 131.8 L77.3 130.2 L75.7 128.5 L74.1 126.9 L72.7 125.6 L71.3 124.8 L70.0 124.5 L68.7 124.8 L67.3 125.6 L65.9 126.9 L64.3 128.5 L62.7 130.2 L61.0 131.8 L59.2 133.0 L57.5 133.8 L55.9 133.9 L54.4 133.4 L53.0 132.3 L51.9 130.7 L50.9 128.7 L50.1 126.5 L49.4 124.3 L48.7 122.3 L47.9 120.7 L47.0 119.5 L45.8 118.9 L44.4 118.8 L42.7 119.2 L40.7 119.8 L38.6 120.6 L36.3 121.4 L34.1 122.0 L32.1 122.1 L30.4 121.9 L29.0 121.1 L28.0 119.8 L27.5 118.0 L27.3 115.9 L27.4 113.6 L27.7 111.3 L28.0 109.0 L28.2 107.1 L28.0 105.4 L27.5 104.1 L26.5 103.2 L25.1 102.7 L23.2 102.3 L21.0 102.1 L18.7 101.9 L16.4 101.5 L14.3 101.0 L12.6 100.1 L11.3 99.0 L10.7 97.6 L10.6 95.9 L11.1 94.0 L12.1 92.0 L13.3 90.0 L14.6 88.0 L15.7 86.2 L16.5 84.6 L16.9 83.1 L16.8 81.8 L16.0 80.6 L14.7 79.4 L13.0 78.3 L11.1 77.2 L9.1 75.9 L7.3 74.6 L5.8 73.1 L4.8 71.6 L4.5 70.0 L4.8 68.4 L5.8 66.9 L7.3 65.4 L9.1 64.1 L11.1 62.8 L13.0 61.7 L14.7 60.6 L16.0 59.4 L16.8 58.2 L16.9 56.9 L16.5 55.4 L15.7 53.8 L14.6 52.0 L13.3 50.0 L12.1 48.0 L11.1 46.0 L10.6 44.1 L10.7 42.4 L11.3 41.0 L12.6 39.9 L14.3 39.0 L16.4 38.5 L18.7 38.1 L21.0 37.9 L23.2 37.7 L25.1 37.3 L26.5 36.8 L27.5 35.9 L28.0 34.6 L28.2 32.9 L28.0 31.0 L27.7 28.7 L27.4 26.4 L27.3 24.1 L27.5 22.0 L28.0 20.2 L29.0 18.9 L30.4 18.1 L32.1 17.9 L34.1 18.0 L36.3 18.6 L38.6 19.4 L40.7 20.2 L42.7 20.8 L44.4 21.2 L45.8 21.1 L47.0 20.5 L47.9 19.3 L48.7 17.7 L49.4 15.7 L50.1 13.5 L50.9 11.3 L51.9 9.3 L53.0 7.7 L54.4 6.6 L55.9 6.1 L57.5 6.2 L59.2 7.0 L61.0 8.2 L62.7 9.8 L64.3 11.5 L65.9 13.1 L67.3 14.4 L68.7 15.2 L70.0 15.5 L71.3 15.2 L72.7 14.4 L74.1 13.1 L75.7 11.5 L77.3 9.8 L79.0 8.2 L80.8 7.0 L82.5 6.2 L84.1 6.1 L85.6 6.6 L87.0 7.7 L88.1 9.3 L89.1 11.3 L89.9 13.5 L90.6 15.7 L91.3 17.7 L92.1 19.3 L93.0 20.5 L94.2 21.1 L95.6 21.2 L97.3 20.8 L99.3 20.2 L101.4 19.4 L103.7 18.6 L105.9 18.0 L107.9 17.9 L109.6 18.1 L111.0 18.9 L112.0 20.2 L112.5 22.0 L112.7 24.1 L112.6 26.4 L112.3 28.7 L112.0 31.0 L111.8 32.9 L112.0 34.6 L112.5 35.9 L113.5 36.8 L114.9 37.3 L116.8 37.7 L119.0 37.9 L121.3 38.1 L123.6 38.5 L125.7 39.0 L127.4 39.9 L128.7 41.0 L129.3 42.4 L129.4 44.1 L128.9 46.0 L127.9 48.0 L126.7 50.0 L125.4 52.0 L124.3 53.8 L123.5 55.4 L123.1 56.9 L123.2 58.2 L124.0 59.4 L125.3 60.6 L127.0 61.7 L128.9 62.8 L130.9 64.1 L132.7 65.4 L134.2 66.9 L135.2 68.4 Z"/></symbol></svg>
 <section class="hero" aria-labelledby="hero-t">
-    <div class="stripes" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="gridbg" aria-hidden="true"></div>
+    <div class="hero-top">
+        <div class="stripes" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="gridbg" aria-hidden="true"></div>
 
-    <span class="bubble b1" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
-    <span class="bubble b2" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
-    <span class="bubble b3" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
-    <svg class="arrow a1" viewBox="0 0 90 190" aria-hidden="true" focusable="false"><path d="M6 6C-12 92 18 150 76 182"/><path d="M58 182l20 2-8-18" stroke-dasharray="none"/></svg>
-    <svg class="arrow a2" viewBox="0 0 90 190" aria-hidden="true" focusable="false"><path d="M6 6C-12 92 18 150 76 182"/><path d="M58 182l20 2-8-18" stroke-dasharray="none"/></svg>
+        <span class="bubble b1" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
+        <span class="bubble b2" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
+        <span class="bubble b3" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="24" r="11" fill="currentColor"/><path d="M10 62c2-15 12-21 22-21s20 6 22 21z" fill="currentColor"/></svg></span>
+        <svg class="arrow a1" viewBox="0 0 90 190" aria-hidden="true" focusable="false"><path d="M6 6C-12 92 18 150 76 182"/><path d="M58 182l20 2-8-18" stroke-dasharray="none"/></svg>
+        <svg class="arrow a2" viewBox="0 0 90 190" aria-hidden="true" focusable="false"><path d="M6 6C-12 92 18 150 76 182"/><path d="M58 182l20 2-8-18" stroke-dasharray="none"/></svg>
 
-    <a class="join" href="{{ route('portfolios.create') }}">
-        <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false"><path d="M135.5 70.0 L135.2 71.6 L134.2 73.1 L132.7 74.6 L130.9 75.9 L128.9 77.2 L127.0 78.3 L125.3 79.4 L124.0 80.6 L123.2 81.8 L123.1 83.1 L123.5 84.6 L124.3 86.2 L125.4 88.0 L126.7 90.0 L127.9 92.0 L128.9 94.0 L129.4 95.9 L129.3 97.6 L128.7 99.0 L127.4 100.1 L125.7 101.0 L123.6 101.5 L121.3 101.9 L119.0 102.1 L116.8 102.3 L114.9 102.7 L113.5 103.2 L112.5 104.1 L112.0 105.4 L111.8 107.1 L112.0 109.0 L112.3 111.3 L112.6 113.6 L112.7 115.9 L112.5 118.0 L112.0 119.8 L111.0 121.1 L109.6 121.9 L107.9 122.1 L105.9 122.0 L103.7 121.4 L101.4 120.6 L99.3 119.8 L97.3 119.2 L95.6 118.8 L94.2 118.9 L93.0 119.5 L92.1 120.7 L91.3 122.3 L90.6 124.3 L89.9 126.5 L89.1 128.7 L88.1 130.7 L87.0 132.3 L85.6 133.4 L84.1 133.9 L82.5 133.8 L80.8 133.0 L79.0 131.8 L77.3 130.2 L75.7 128.5 L74.1 126.9 L72.7 125.6 L71.3 124.8 L70.0 124.5 L68.7 124.8 L67.3 125.6 L65.9 126.9 L64.3 128.5 L62.7 130.2 L61.0 131.8 L59.2 133.0 L57.5 133.8 L55.9 133.9 L54.4 133.4 L53.0 132.3 L51.9 130.7 L50.9 128.7 L50.1 126.5 L49.4 124.3 L48.7 122.3 L47.9 120.7 L47.0 119.5 L45.8 118.9 L44.4 118.8 L42.7 119.2 L40.7 119.8 L38.6 120.6 L36.3 121.4 L34.1 122.0 L32.1 122.1 L30.4 121.9 L29.0 121.1 L28.0 119.8 L27.5 118.0 L27.3 115.9 L27.4 113.6 L27.7 111.3 L28.0 109.0 L28.2 107.1 L28.0 105.4 L27.5 104.1 L26.5 103.2 L25.1 102.7 L23.2 102.3 L21.0 102.1 L18.7 101.9 L16.4 101.5 L14.3 101.0 L12.6 100.1 L11.3 99.0 L10.7 97.6 L10.6 95.9 L11.1 94.0 L12.1 92.0 L13.3 90.0 L14.6 88.0 L15.7 86.2 L16.5 84.6 L16.9 83.1 L16.8 81.8 L16.0 80.6 L14.7 79.4 L13.0 78.3 L11.1 77.2 L9.1 75.9 L7.3 74.6 L5.8 73.1 L4.8 71.6 L4.5 70.0 L4.8 68.4 L5.8 66.9 L7.3 65.4 L9.1 64.1 L11.1 62.8 L13.0 61.7 L14.7 60.6 L16.0 59.4 L16.8 58.2 L16.9 56.9 L16.5 55.4 L15.7 53.8 L14.6 52.0 L13.3 50.0 L12.1 48.0 L11.1 46.0 L10.6 44.1 L10.7 42.4 L11.3 41.0 L12.6 39.9 L14.3 39.0 L16.4 38.5 L18.7 38.1 L21.0 37.9 L23.2 37.7 L25.1 37.3 L26.5 36.8 L27.5 35.9 L28.0 34.6 L28.2 32.9 L28.0 31.0 L27.7 28.7 L27.4 26.4 L27.3 24.1 L27.5 22.0 L28.0 20.2 L29.0 18.9 L30.4 18.1 L32.1 17.9 L34.1 18.0 L36.3 18.6 L38.6 19.4 L40.7 20.2 L42.7 20.8 L44.4 21.2 L45.8 21.1 L47.0 20.5 L47.9 19.3 L48.7 17.7 L49.4 15.7 L50.1 13.5 L50.9 11.3 L51.9 9.3 L53.0 7.7 L54.4 6.6 L55.9 6.1 L57.5 6.2 L59.2 7.0 L61.0 8.2 L62.7 9.8 L64.3 11.5 L65.9 13.1 L67.3 14.4 L68.7 15.2 L70.0 15.5 L71.3 15.2 L72.7 14.4 L74.1 13.1 L75.7 11.5 L77.3 9.8 L79.0 8.2 L80.8 7.0 L82.5 6.2 L84.1 6.1 L85.6 6.6 L87.0 7.7 L88.1 9.3 L89.1 11.3 L89.9 13.5 L90.6 15.7 L91.3 17.7 L92.1 19.3 L93.0 20.5 L94.2 21.1 L95.6 21.2 L97.3 20.8 L99.3 20.2 L101.4 19.4 L103.7 18.6 L105.9 18.0 L107.9 17.9 L109.6 18.1 L111.0 18.9 L112.0 20.2 L112.5 22.0 L112.7 24.1 L112.6 26.4 L112.3 28.7 L112.0 31.0 L111.8 32.9 L112.0 34.6 L112.5 35.9 L113.5 36.8 L114.9 37.3 L116.8 37.7 L119.0 37.9 L121.3 38.1 L123.6 38.5 L125.7 39.0 L127.4 39.9 L128.7 41.0 L129.3 42.4 L129.4 44.1 L128.9 46.0 L127.9 48.0 L126.7 50.0 L125.4 52.0 L124.3 53.8 L123.5 55.4 L123.1 56.9 L123.2 58.2 L124.0 59.4 L125.3 60.6 L127.0 61.7 L128.9 62.8 L130.9 64.1 L132.7 65.4 L134.2 66.9 L135.2 68.4 Z"/></svg>
-        <span>Join us now<span class="sr"> – create your portfolio</span></span>
-    </a>
+        <a class="join" href="{{ route('portfolios.create') }}">
+            <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false"><path d="M135.5 70.0 L135.2 71.6 L134.2 73.1 L132.7 74.6 L130.9 75.9 L128.9 77.2 L127.0 78.3 L125.3 79.4 L124.0 80.6 L123.2 81.8 L123.1 83.1 L123.5 84.6 L124.3 86.2 L125.4 88.0 L126.7 90.0 L127.9 92.0 L128.9 94.0 L129.4 95.9 L129.3 97.6 L128.7 99.0 L127.4 100.1 L125.7 101.0 L123.6 101.5 L121.3 101.9 L119.0 102.1 L116.8 102.3 L114.9 102.7 L113.5 103.2 L112.5 104.1 L112.0 105.4 L111.8 107.1 L112.0 109.0 L112.3 111.3 L112.6 113.6 L112.7 115.9 L112.5 118.0 L112.0 119.8 L111.0 121.1 L109.6 121.9 L107.9 122.1 L105.9 122.0 L103.7 121.4 L101.4 120.6 L99.3 119.8 L97.3 119.2 L95.6 118.8 L94.2 118.9 L93.0 119.5 L92.1 120.7 L91.3 122.3 L90.6 124.3 L89.9 126.5 L89.1 128.7 L88.1 130.7 L87.0 132.3 L85.6 133.4 L84.1 133.9 L82.5 133.8 L80.8 133.0 L79.0 131.8 L77.3 130.2 L75.7 128.5 L74.1 126.9 L72.7 125.6 L71.3 124.8 L70.0 124.5 L68.7 124.8 L67.3 125.6 L65.9 126.9 L64.3 128.5 L62.7 130.2 L61.0 131.8 L59.2 133.0 L57.5 133.8 L55.9 133.9 L54.4 133.4 L53.0 132.3 L51.9 130.7 L50.9 128.7 L50.1 126.5 L49.4 124.3 L48.7 122.3 L47.9 120.7 L47.0 119.5 L45.8 118.9 L44.4 118.8 L42.7 119.2 L40.7 119.8 L38.6 120.6 L36.3 121.4 L34.1 122.0 L32.1 122.1 L30.4 121.9 L29.0 121.1 L28.0 119.8 L27.5 118.0 L27.3 115.9 L27.4 113.6 L27.7 111.3 L28.0 109.0 L28.2 107.1 L28.0 105.4 L27.5 104.1 L26.5 103.2 L25.1 102.7 L23.2 102.3 L21.0 102.1 L18.7 101.9 L16.4 101.5 L14.3 101.0 L12.6 100.1 L11.3 99.0 L10.7 97.6 L10.6 95.9 L11.1 94.0 L12.1 92.0 L13.3 90.0 L14.6 88.0 L15.7 86.2 L16.5 84.6 L16.9 83.1 L16.8 81.8 L16.0 80.6 L14.7 79.4 L13.0 78.3 L11.1 77.2 L9.1 75.9 L7.3 74.6 L5.8 73.1 L4.8 71.6 L4.5 70.0 L4.8 68.4 L5.8 66.9 L7.3 65.4 L9.1 64.1 L11.1 62.8 L13.0 61.7 L14.7 60.6 L16.0 59.4 L16.8 58.2 L16.9 56.9 L16.5 55.4 L15.7 53.8 L14.6 52.0 L13.3 50.0 L12.1 48.0 L11.1 46.0 L10.6 44.1 L10.7 42.4 L11.3 41.0 L12.6 39.9 L14.3 39.0 L16.4 38.5 L18.7 38.1 L21.0 37.9 L23.2 37.7 L25.1 37.3 L26.5 36.8 L27.5 35.9 L28.0 34.6 L28.2 32.9 L28.0 31.0 L27.7 28.7 L27.4 26.4 L27.3 24.1 L27.5 22.0 L28.0 20.2 L29.0 18.9 L30.4 18.1 L32.1 17.9 L34.1 18.0 L36.3 18.6 L38.6 19.4 L40.7 20.2 L42.7 20.8 L44.4 21.2 L45.8 21.1 L47.0 20.5 L47.9 19.3 L48.7 17.7 L49.4 15.7 L50.1 13.5 L50.9 11.3 L51.9 9.3 L53.0 7.7 L54.4 6.6 L55.9 6.1 L57.5 6.2 L59.2 7.0 L61.0 8.2 L62.7 9.8 L64.3 11.5 L65.9 13.1 L67.3 14.4 L68.7 15.2 L70.0 15.5 L71.3 15.2 L72.7 14.4 L74.1 13.1 L75.7 11.5 L77.3 9.8 L79.0 8.2 L80.8 7.0 L82.5 6.2 L84.1 6.1 L85.6 6.6 L87.0 7.7 L88.1 9.3 L89.1 11.3 L89.9 13.5 L90.6 15.7 L91.3 17.7 L92.1 19.3 L93.0 20.5 L94.2 21.1 L95.6 21.2 L97.3 20.8 L99.3 20.2 L101.4 19.4 L103.7 18.6 L105.9 18.0 L107.9 17.9 L109.6 18.1 L111.0 18.9 L112.0 20.2 L112.5 22.0 L112.7 24.1 L112.6 26.4 L112.3 28.7 L112.0 31.0 L111.8 32.9 L112.0 34.6 L112.5 35.9 L113.5 36.8 L114.9 37.3 L116.8 37.7 L119.0 37.9 L121.3 38.1 L123.6 38.5 L125.7 39.0 L127.4 39.9 L128.7 41.0 L129.3 42.4 L129.4 44.1 L128.9 46.0 L127.9 48.0 L126.7 50.0 L125.4 52.0 L124.3 53.8 L123.5 55.4 L123.1 56.9 L123.2 58.2 L124.0 59.4 L125.3 60.6 L127.0 61.7 L128.9 62.8 L130.9 64.1 L132.7 65.4 L134.2 66.9 L135.2 68.4 Z"/></svg>
+            <span>Create<br>Now<span class="sr"> – start your portfolio</span></span>
+        </a>
 
-    <div class="hero-main">
-        <div class="stripes stripes-m" aria-hidden="true"><i></i><i></i><i></i></div>
-        <p class="pill"><x-icon name="asterisk" :size="16" /> Portfolio platform</p>
-        <h1 class="mega" id="hero-t"><span>Portfolios</span><span>that <span class="alt">w</span>ork</span><span>for y<span class="alt">o</span>u</span></h1>
-        <p class="lead">Fill in your details once, pick a design, and get a portfolio page you can preview, edit and share.</p>
-        <div class="actions" style="justify-content:center">
-            <a class="btn cta lg" href="{{ route('portfolios.create') }}">Create portfolio <x-icon name="arrow" /></a>
-            <a class="btn ghost lg" href="{{ route('portfolios.index') }}">Manage portfolios</a>
+        <div class="hero-main">
+            <p class="pill"><x-icon name="asterisk" :size="16" /> Portfolio platform</p>
+            <h1 class="mega" id="hero-t"><span>Portfolios</span><span>that work</span><span>for you</span></h1>
+            <p class="lead">Fill in your details once, pick a design, and get a portfolio page you can preview, edit and share.</p>
+            <div class="actions" style="justify-content:center">
+                <a class="btn cta lg" href="{{ route('portfolios.create') }}">Create portfolio <x-icon name="arrow" /></a>
+                @auth
+                    <a class="btn ghost lg" href="{{ route('portfolios.index') }}">Manage portfolios</a>
+                @else
+                    <a class="btn ghost lg" href="{{ route('login') }}">Log in</a>
+                @endauth
+            </div>
         </div>
     </div>
 
@@ -108,10 +111,6 @@ html:not(.js) .sc-tabs{display:none}
         <div class="stat-side">
             <p class="say">Fill it in once. Switch designs whenever you like.</p>
             <p class="names" aria-label="Templates"><span>Formal</span><span>Modern</span><span>Aesthetic</span></p>
-        </div>
-        <div class="statcard">
-            <b>3</b>
-            <p>ready-made templates, each with its own light and dark mode.</p>
         </div>
         <div class="stat-side">
             <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -126,11 +125,12 @@ html:not(.js) .sc-tabs{display:none}
     <li><b>3</b><span>ready-made templates</span></li>
     <li><b>7</b><span>portfolio sections</span></li>
     <li><b>2</b><span>themes: light and dark</span></li>
-    @if (($portfolioCount ?? 0) > 0)
-        <li><b>{{ number_format($portfolioCount) }}</b><span>{{ $portfolioCount === 1 ? 'portfolio created' : 'portfolios created' }}</span></li>
+    @auth
+        {{-- Only shown to logged-in users: how many portfolios THEY created --}}
+        <li><b>{{ number_format($portfolioCount ?? 0) }}</b><span>{{ ($portfolioCount ?? 0) === 1 ? 'portfolio created' : 'portfolios created' }}</span></li>
     @else
         <li><b>1</b><span>shareable link per portfolio</span></li>
-    @endif
+    @endauth
 </ul>
 
 <section class="band caps" id="how" aria-labelledby="how-t">

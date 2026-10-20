@@ -6,6 +6,7 @@ use App\Models\Portfolio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -33,7 +34,7 @@ class PortfolioController extends Controller
     public function index(): View
     {
         return view('portfolios.index', [
-            'portfolios' => Portfolio::latest()->get(),
+            'portfolios' => Portfolio::where('user_id', Auth::id())->latest()->get(),
         ]);
     }
 
@@ -49,6 +50,7 @@ class PortfolioController extends Controller
     /** Portfolio Information page (edit) */
     public function edit(Portfolio $portfolio): View
     {
+        $this->own($portfolio);
         $portfolio->load('certificates');
 
         return view('portfolios.form', [
@@ -60,6 +62,7 @@ class PortfolioController extends Controller
     /** Template Selection page */
     public function templates(Portfolio $portfolio): View
     {
+        $this->own($portfolio);
         $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks']);
 
         return view('portfolios.templates', compact('portfolio'));
@@ -68,6 +71,7 @@ class PortfolioController extends Controller
     /** Portfolio Preview page (toolbar + the generated portfolio in a frame) */
     public function preview(Request $request, Portfolio $portfolio): View
     {
+        $this->own($portfolio);
         $template = $this->resolveTemplate($request->query('template'), $portfolio);
 
         return view('portfolios.preview', compact('portfolio', 'template'));
@@ -77,7 +81,10 @@ class PortfolioController extends Controller
     public function show(Request $request, Portfolio $portfolio): View
     {
         $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'certificates']);
-        $template = $this->resolveTemplate($request->query('template'), $portfolio);
+
+        // Read-only for everyone. Only the owner can switch templates (used by the preview page).
+        $isOwner = Auth::check() && (int) $portfolio->user_id === (int) Auth::id();
+        $template = $this->resolveTemplate($isOwner ? $request->query('template') : null, $portfolio);
 
         return view('templates.' . $template, compact('portfolio'));
     }
@@ -89,6 +96,7 @@ class PortfolioController extends Controller
      */
     public function pdf(Request $request, Portfolio $portfolio)
     {
+        $this->own($portfolio);
         $template = $this->resolveTemplate($request->query('template'), $portfolio);
 
         if (! class_exists(\Barryvdh\DomPDF\Facade\Pdf::class)) {
@@ -141,6 +149,7 @@ class PortfolioController extends Controller
 
         $portfolio = DB::transaction(function () use ($request, $data) {
             $portfolio = Portfolio::create($this->mainFields($data) + [
+                'user_id'         => Auth::id(),
                 'slug'            => Str::lower(Str::random(10)),
                 'template'        => 'simple',
                 'profile_picture' => $this->pictureFromRequest($request),
@@ -157,6 +166,7 @@ class PortfolioController extends Controller
 
     public function update(Request $request, Portfolio $portfolio): RedirectResponse
     {
+        $this->own($portfolio);
         $data = $this->validateRequest($request);
         $this->guardCertificateCount($request, $portfolio);
 
@@ -180,6 +190,7 @@ class PortfolioController extends Controller
 
     public function selectTemplate(Request $request, Portfolio $portfolio): RedirectResponse
     {
+        $this->own($portfolio);
         $request->validate([
             'template' => ['required', Rule::in(array_keys(Portfolio::TEMPLATES))],
         ]);
@@ -190,8 +201,32 @@ class PortfolioController extends Controller
             ->with('success', 'Template "' . Portfolio::TEMPLATES[$portfolio->template]['name'] . '" selected. Your portfolio is generated! You can download it as a PDF from the toolbar.');
     }
 
+    /** Save the previewed template, then show the "Saved" page. */
+    public function save(Request $request, Portfolio $portfolio): RedirectResponse
+    {
+        $this->own($portfolio);
+
+        $request->validate([
+            'template' => ['required', Rule::in(array_keys(Portfolio::TEMPLATES))],
+        ]);
+
+        $portfolio->update(['template' => $request->input('template')]);
+
+        return redirect()->route('portfolios.saved', $portfolio)
+            ->with('success', 'Your portfolio was saved.');
+    }
+
+    /** The "Saved" page: confirmation, share link and next steps. */
+    public function saved(Portfolio $portfolio): View
+    {
+        $this->own($portfolio);
+
+        return view('portfolios.saved', compact('portfolio'));
+    }
+
     public function destroy(Portfolio $portfolio): RedirectResponse
     {
+        $this->own($portfolio);
         $name = $portfolio->full_name;
         $portfolio->delete(); // child rows are removed by ON DELETE CASCADE
 
@@ -235,6 +270,14 @@ class PortfolioController extends Controller
         return $jpeg ? 'data:image/jpeg;base64,' . base64_encode($jpeg) : null;
     }
 
+    /** Only the account that created a portfolio may open its private pages (404 for everybody else). */
+    private function own(Portfolio $portfolio): Portfolio
+    {
+        abort_unless(Auth::check() && (int) $portfolio->user_id === (int) Auth::id(), 404);
+
+        return $portfolio;
+    }
+
     private function resolveTemplate(?string $requested, Portfolio $portfolio): string
     {
         if ($requested && array_key_exists($requested, Portfolio::TEMPLATES)) {
@@ -254,8 +297,8 @@ class PortfolioController extends Controller
         $this->cleanRows($request, 'links', ['platform', 'url'], ['url'], ['platform']);
 
         $rules = [
-            'full_name'       => ['required', 'string', 'max:150'],
-            'job_title'       => ['nullable', 'string', 'max:150'],
+            'full_name'       => ['required', 'string', 'max:150', 'regex:' . AuthController::LETTERS],
+            'job_title'       => ['nullable', 'string', 'max:150', 'regex:' . AuthController::LETTERS],
             'email'           => ['required', 'email', 'max:150'],
             'phone'           => ['required', 'string', 'max:40'],
             'address'         => ['required', 'string', 'max:255'],
@@ -305,7 +348,13 @@ class PortfolioController extends Controller
             'about' => 'About Me', 'profile_picture' => 'profile picture', 'certificates.*' => 'certificate photo',
         ];
 
-        return $request->validate($rules, [], $attributes);
+        $messages = [
+            'full_name.regex' => 'The full name may only contain letters, spaces and . , \' - (no numbers).',
+            'job_title.regex' => 'The professional title may only contain letters, spaces and . , \' - (no numbers).',
+        ];
+        $attributes += ['full_name' => 'full name', 'job_title' => 'professional title'];
+
+        return $request->validate($rules, $messages, $attributes);
     }
 
     /**

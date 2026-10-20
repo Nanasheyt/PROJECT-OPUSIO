@@ -64,8 +64,8 @@ input.sr:focus-visible + label.btn{outline:3px solid var(--ring);outline-offset:
         <section class="card" id="sec-personal" aria-labelledby="h-personal">
             <div class="card-h"><span class="ib"><x-icon name="user" /></span><h2 id="h-personal">Personal information</h2></div>
             <div class="grid g2">
-                <x-field name="full_name" label="Full name" :value="old('full_name', $portfolio->full_name)" required autocomplete="name" maxlength="150" />
-                <x-field name="job_title" label="Professional title" :value="old('job_title', $portfolio->job_title)" autocomplete="organization-title" maxlength="150" hint="For example: Web Developer" />
+                <x-field name="full_name" label="Full name" :value="old('full_name', $portfolio->full_name)" required autocomplete="name" maxlength="150" letters />
+                <x-field name="job_title" label="Professional title" :value="old('job_title', $portfolio->job_title)" autocomplete="organization-title" maxlength="150" hint="Letters only. For example: Web Developer" letters />
                 <x-field name="email" label="Email" type="email" :value="old('email', $portfolio->email)" required autocomplete="email" maxlength="150" />
                 <x-field name="phone" label="Contact number" type="text" :value="old('phone', $portfolio->phone)" required autocomplete="tel" maxlength="40" />
                 <div class="span2"><x-field name="address" label="Address" :value="old('address', $portfolio->address)" required autocomplete="street-address" maxlength="255" /></div>

@@ -19,7 +19,7 @@ class Portfolio extends Model
     public const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Instagram', 'Twitter / X', 'YouTube', 'Website', 'Other'];
 
     protected $fillable = [
-        'slug', 'full_name', 'job_title', 'email', 'phone', 'address',
+        'user_id', 'slug', 'full_name', 'job_title', 'email', 'phone', 'address',
         'about', 'profile_picture', 'template',
     ];
 

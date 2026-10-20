@@ -16,16 +16,13 @@
             @endforeach
         </nav>
         <div class="actions">
-            @if ($template !== $portfolio->template)
-                <form method="POST" action="{{ route('portfolios.select', $portfolio) }}">
-                    @csrf <input type="hidden" name="template" value="{{ $template }}">
-                    <button class="btn cta sm" type="submit" data-busy="Applying…"><x-icon name="check" :size="16" /> Use {{ \App\Models\Portfolio::TEMPLATES[$template]['name'] }}</button>
-                </form>
-            @endif
+            <form method="POST" action="{{ route('portfolios.save', $portfolio) }}">
+                @csrf <input type="hidden" name="template" value="{{ $template }}">
+                <button class="btn cta sm" type="submit" data-busy="Saving…"><x-icon name="check" :size="16" /> Save</button>
+            </form>
             <a class="btn sm" href="{{ route('portfolios.pdf', [$portfolio, 'template' => $template]) }}"><x-icon name="download" :size="16" /> Download PDF</a>
             <button type="button" class="btn sm ghost" data-copy="{{ route('portfolios.show', $portfolio) }}"><x-icon name="link" :size="16" /> Copy link</button>
             <a class="btn sm ghost" href="{{ route('portfolios.show', $portfolio) }}" target="_blank" rel="noopener"><x-icon name="external" :size="16" /> Open full page<span class="sr"> (new tab)</span></a>
-            <a class="btn sm ghost" href="{{ route('portfolios.templates', $portfolio) }}"><x-icon name="grid" :size="16" /> All templates</a>
             <a class="btn sm ghost" href="{{ route('portfolios.edit', $portfolio) }}"><x-icon name="pencil" :size="16" /> Edit</a>
             <form method="POST" action="{{ route('portfolios.destroy', $portfolio) }}"
                   data-confirm="The portfolio of {{ $portfolio->full_name }} and all its details will be permanently removed." data-confirm-title="Delete this portfolio?">

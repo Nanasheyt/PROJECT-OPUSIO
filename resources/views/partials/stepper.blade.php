@@ -3,6 +3,7 @@
         1 => ['Information', isset($portfolio) && $portfolio->exists ? route('portfolios.edit', $portfolio) : route('portfolios.create')],
         2 => ['Template',    isset($portfolio) && $portfolio->exists ? route('portfolios.templates', $portfolio) : null],
         3 => ['Preview',     isset($portfolio) && $portfolio->exists ? route('portfolios.preview', $portfolio) : null],
+        4 => ['Saved',       isset($portfolio) && $portfolio->exists ? route('portfolios.saved', $portfolio) : null],
     ];
 @endphp
 <nav class="stepper" aria-label="Progress">

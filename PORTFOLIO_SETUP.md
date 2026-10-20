@@ -57,6 +57,20 @@ If creating the PDF fails for another reason, the page shows the error (when `AP
 - Fonts scale automatically: the base size grows smoothly from 15 px on small phones to 18 px on large screens.
 - Manage page: square photo tiles; portfolios without a photo get a standard "unknown person" silhouette.
 
+### Accounts and private portfolios (new)
+- Visitors sign up / log in (`/register`, `/login`). Every portfolio now belongs to the account that created it (`portfolios.user_id`).
+- Manage, create, edit, template picker, preview, save, Saved page and PDF all need a login, and only the **owner** can open them
+  (anyone else gets a 404). The public link `/p/{id}` stays open but is **view-only**, and only the owner can switch templates on it.
+- **Run `php artisan migrate`** (Railway runs it on deploy if you start with the Dockerfile). The new migration creates `users` /
+  `sessions` only if your database does not already have them, adds `portfolios.user_id`, and turns on Row Level Security for the
+  account tables (they contain password hashes).
+- **Portfolios made before accounts existed** have no owner, so nobody can edit them. Give them to an account, for example:
+  `php artisan tinker` then `App\Models\Portfolio::whereNull('user_id')->update(['user_id' => 1]);` (1 = the first user's id).
+- Set `SESSION_DRIVER=database` in your environment (Railway variables and local `.env`) so logins survive redeploys.
+- Not included: password reset by email (needs a mail service) and email verification.
+- Name and professional title accept **letters only** (checked in the browser as you type and again on the server).
+- Preview page: **Save** keeps the previewed template and opens the new **Saved** page (share link, PDF, edit, manage).
+
 ### The 3 templates
 | Name | Style |
 |---|---|

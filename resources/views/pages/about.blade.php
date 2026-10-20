@@ -35,7 +35,7 @@
         <li><strong>Your choice of theme:</strong> light and dark mode for the app and for each template, with motion kept optional.</li>
     </ul>
 
-    <div class="callout"><strong>Good to know:</strong> this version has no login. Anyone with a portfolio's link can view it, and the Manage page lists all portfolios saved on the site.</div>
+    <div class="callout"><strong>Good to know:</strong> you need an account to create and manage portfolios, and each portfolio is private to the account that made it. Anyone with a portfolio's public link can view it, but cannot edit it.</div>
     <div class="actions"><a class="btn cta" href="{{ route('portfolios.create') }}">Create portfolio <x-icon name="arrow" /></a>
         <a class="btn ghost" href="{{ route('faq') }}">Read the FAQ</a></div>
 </div>
