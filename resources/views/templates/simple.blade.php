@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 @include('partials.portfolio-theme-head')
 <title>{{ $portfolio->full_name }} – Portfolio</title>
+<meta name="description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:title" content="{{ $portfolio->full_name }} – Portfolio">
+<meta property="og:description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:type" content="profile">
+@if ($portfolio->profile_picture)
+<meta property="og:image" content="{{ $portfolio->profile_picture }}">
+@endif
+<meta property="og:url" content="{{ request()->url() }}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -136,6 +145,40 @@ footer{text-align:center;color:var(--mut);font-size:.8125rem;padding:0 20px 32px
                     <div class="e-top"><h3>@if ($p->url)<a href="{{ $p->url }}" target="_blank" rel="noopener">{{ $p->title }}<span class="sr-only"> (opens in a new tab)</span></a>@else{{ $p->title }}@endif</h3></div>
                     @if ($p->tech)<div class="tech">{{ $p->tech }}</div>@endif
                     @if ($p->description)<p class="d">{{ $p->description }}</p>@endif
+                </article>
+            @endforeach
+        </section>
+        @endif
+
+        @if ($portfolio->testimonials->count())
+        <section aria-labelledby="f-test"><h2 class="sec" id="f-test">Testimonials</h2>
+            @foreach ($portfolio->testimonials as $t)
+                <article class="e" style="font-style:italic">
+                    <p class="d" style="margin:0;font-size:1.0625rem">"{{ $t->quote }}"</p>
+                    <div class="meta" style="margin-top:8px;font-style:normal;font-size:.9375rem">— {{ $t->author }}, {{ $t->role }}</div>
+                </article>
+            @endforeach
+        </section>
+        @endif
+
+        @if ($portfolio->publications->count())
+        <section aria-labelledby="f-pub"><h2 class="sec" id="f-pub">Publications</h2>
+            @foreach ($portfolio->publications as $p)
+                <article class="e">
+                    <div class="e-top"><h3>{{ $p->title }}</h3></div>
+                    <p class="org">{{ $p->venue }}@if ($p->year) &middot; {{ $p->year }}@endif</p>
+                    @if ($p->url)<a class="go" href="{{ $p->url }}" target="_blank" rel="noopener">Read <x-icon name="external" :size="14" /><span class="sr-only"> (opens in a new tab)</span></a>@endif
+                </article>
+            @endforeach
+        </section>
+        @endif
+
+        @if ($portfolio->languages->count())
+        <section aria-labelledby="f-lang"><h2 class="sec" id="f-lang">Languages</h2>
+            @foreach ($portfolio->languages as $l)
+                <article class="e">
+                    <div class="e-top"><h3>{{ $l->name }}</h3></div>
+                    <p class="org">{{ $l->proficiency }} @if ($l->percent)({{ $l->percent }}%)@endif</p>
                 </article>
             @endforeach
         </section>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
+use App\Models\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -51,7 +52,7 @@ class PortfolioController extends Controller
     public function edit(Portfolio $portfolio): View
     {
         $this->own($portfolio);
-        $portfolio->load('certificates');
+        $portfolio->load(['certificates', 'testimonials', 'publications', 'languages']);
 
         return view('portfolios.form', [
             'portfolio' => $portfolio,
@@ -63,7 +64,7 @@ class PortfolioController extends Controller
     public function templates(Portfolio $portfolio): View
     {
         $this->own($portfolio);
-        $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks']);
+        $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'testimonials', 'publications', 'languages']);
 
         return view('portfolios.templates', compact('portfolio'));
     }
@@ -80,7 +81,7 @@ class PortfolioController extends Controller
     /** The generated portfolio itself (standalone, shareable page) */
     public function show(Request $request, Portfolio $portfolio): View
     {
-        $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'certificates']);
+        $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'certificates', 'testimonials', 'publications', 'languages']);
 
         // Read-only for everyone. Only the owner can switch templates (used by the preview page).
         $isOwner = Auth::check() && (int) $portfolio->user_id === (int) Auth::id();
@@ -113,7 +114,7 @@ class PortfolioController extends Controller
                 @mkdir($fontDir, 0775, true);
             }
 
-            $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'certificates']);
+            $portfolio->load(['educations', 'skills', 'projects', 'experiences', 'socialLinks', 'certificates', 'testimonials', 'publications', 'languages']);
 
             // Certificates: smaller JPEGs (dompdf cannot read WebP), three per row
             $certImages = $portfolio->certificates
@@ -296,6 +297,9 @@ class PortfolioController extends Controller
         $this->cleanRows($request, 'skills', ['name', 'level'], [], ['level']);
         $this->cleanRows($request, 'projects', ['title', 'description', 'tech', 'url'], ['url']);
         $this->cleanRows($request, 'experience', ['company', 'position', 'start_date', 'end_date', 'description']);
+        $this->cleanRows($request, 'testimonials', ['quote', 'author', 'role']);
+        $this->cleanRows($request, 'publications', ['title', 'venue', 'year', 'url'], ['url']);
+        $this->cleanRows($request, 'languages', ['name', 'proficiency', 'percent']);
         $this->cleanRows($request, 'links', ['platform', 'url'], ['url'], ['platform']);
 
         $rules = [
@@ -330,6 +334,22 @@ class PortfolioController extends Controller
             'experience.*.start_date'  => ['nullable', 'string', 'max:30'],
             'experience.*.end_date'    => ['nullable', 'string', 'max:30'],
             'experience.*.description' => ['nullable', 'string', 'max:1500'],
+
+            'testimonials'           => ['nullable', 'array', 'max:10'],
+            'testimonials.*.quote'   => ['required', 'string', 'max:2000'],
+            'testimonials.*.author'  => ['required', 'string', 'max:100'],
+            'testimonials.*.role'    => ['required', 'string', 'max:150'],
+
+            'publications'           => ['nullable', 'array', 'max:10'],
+            'publications.*.title'   => ['required', 'string', 'max:255'],
+            'publications.*.venue'   => ['required', 'string', 'max:150'],
+            'publications.*.year'    => ['nullable', 'string', 'max:10'],
+            'publications.*.url'     => ['nullable', 'url:http,https', 'max:500'],
+
+            'languages'              => ['nullable', 'array', 'max:15'],
+            'languages.*.name'       => ['required', 'string', 'max:50'],
+            'languages.*.proficiency'=> ['required', Rule::in(array_keys(Language::PROFICIENCIES))],
+            'languages.*.percent'    => ['nullable', 'integer', 'min:0', 'max:100'],
 
             'certificates'     => ['nullable', 'array', 'max:10'],
             'certificates.*'   => ['image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
@@ -411,11 +431,14 @@ class PortfolioController extends Controller
     private function syncChildren(Portfolio $portfolio, array $data): void
     {
         $map = [
-            'educations'  => 'education',
-            'skills'      => 'skills',
-            'projects'    => 'projects',
-            'experiences' => 'experience',
-            'socialLinks' => 'links',
+            'educations'      => 'education',
+            'skills'          => 'skills',
+            'projects'        => 'projects',
+            'experiences'     => 'experience',
+            'testimonials'    => 'testimonials',
+            'publications'    => 'publications',
+            'languages'       => 'languages',
+            'socialLinks'     => 'links',
         ];
 
         foreach ($map as $relation => $key) {
@@ -564,11 +587,14 @@ class PortfolioController extends Controller
             : [];
 
         return [
-            'education'  => old('education',  $fromDb('educations',  ['school', 'degree', 'start_year', 'end_year', 'description'])),
-            'skills'     => old('skills',     $fromDb('skills',      ['name', 'level'])),
-            'projects'   => old('projects',   $fromDb('projects',    ['title', 'description', 'tech', 'url'])),
-            'experience' => old('experience', $fromDb('experiences', ['company', 'position', 'start_date', 'end_date', 'description'])),
-            'links'      => old('links',      $fromDb('socialLinks', ['platform', 'url'])),
+            'education'      => old('education',      $fromDb('educations',      ['school', 'degree', 'start_year', 'end_year', 'description'])),
+            'skills'         => old('skills',         $fromDb('skills',          ['name', 'level'])),
+            'projects'       => old('projects',       $fromDb('projects',        ['title', 'description', 'tech', 'url'])),
+            'experience'     => old('experience',     $fromDb('experiences',     ['company', 'position', 'start_date', 'end_date', 'description'])),
+            'testimonials'   => old('testimonials',   $fromDb('testimonials',    ['quote', 'author', 'role'])),
+            'publications'   => old('publications',   $fromDb('publications',    ['title', 'venue', 'year', 'url'])),
+            'languages'      => old('languages',      $fromDb('languages',       ['name', 'proficiency', 'percent'])),
+            'links'          => old('links',          $fromDb('socialLinks',     ['platform', 'url'])),
         ];
     }
 }

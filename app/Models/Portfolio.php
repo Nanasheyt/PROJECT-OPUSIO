@@ -9,9 +9,10 @@ class Portfolio extends Model
 {
     public const TEMPLATES = [
         // Keys are stored in the database, so they stay the same; only the names changed.
-        'simple'   => ['name' => 'Formal',    'description' => 'Classic executive résumé in navy and gold. Print-friendly.'],
-        'modern'   => ['name' => 'Modern',    'description' => 'Frosted-glass cards on a soft gradient, with a sticky section menu.'],
-        'creative' => ['name' => 'Aesthetic', 'description' => 'Cyber-tech HUD with neon colours that slowly shift. Has a pause button.'],
+        'simple'    => ['name' => 'Formal',    'description' => 'Classic executive résumé in navy and gold. Print-friendly.'],
+        'modern'    => ['name' => 'Modern',    'description' => 'Frosted-glass cards on a soft gradient, with a sticky section menu.'],
+        'creative'  => ['name' => 'Aesthetic', 'description' => 'Cyber-tech HUD with neon colours that slowly shift. Has a pause button.'],
+        'minimal'   => ['name' => 'Minimal',   'description' => 'Ultra-clean, typography-first design. Zero decoration, maximum content density.'],
     ];
 
     public const SKILL_LEVELS = ['Beginner' => 35, 'Intermediate' => 60, 'Advanced' => 80, 'Expert' => 95];
@@ -56,6 +57,21 @@ class Portfolio extends Model
     public function socialLinks(): HasMany
     {
         return $this->hasMany(SocialLink::class)->orderBy('sort_order');
+    }
+
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class)->orderBy('sort_order');
+    }
+
+    public function publications(): HasMany
+    {
+        return $this->hasMany(Publication::class)->orderBy('sort_order');
+    }
+
+    public function languages(): HasMany
+    {
+        return $this->hasMany(Language::class)->orderBy('sort_order');
     }
 
     public function getInitialsAttribute(): string

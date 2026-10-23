@@ -14,6 +14,15 @@
 })();
 </script>
 <title>{{ $portfolio->full_name }} – Portfolio</title>
+<meta name="description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:title" content="{{ $portfolio->full_name }} – Portfolio">
+<meta property="og:description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:type" content="profile">
+@if ($portfolio->profile_picture)
+<meta property="og:image" content="{{ $portfolio->profile_picture }}">
+@endif
+<meta property="og:url" content="{{ request()->url() }}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
@@ -162,6 +171,32 @@ footer{grid-column:1/-1;color:var(--mut);font-size:.8125rem;text-transform:upper
                 @if ($p->tech)<span class="tag">{{ $p->tech }}</span>@endif
                 @if ($p->url)<a class="go" href="{{ $p->url }}" target="_blank" rel="noopener">Open project <x-icon name="arrow" :size="18" /><span class="sr-only"> (opens in a new tab)</span></a>@endif</article>
         @endforeach</div></section>
+    @endif
+
+    @if ($portfolio->testimonials->count())
+    <section class="panel test" aria-labelledby="c-test"><h2 class="sh" id="c-test">Testimonials</h2>
+        @foreach ($portfolio->testimonials as $t)
+            <article class="ent" style="font-style:italic;border-left-color:var(--a)">
+                <p style="margin:0;font-size:1.0625rem">"{{ $t->quote }}"</p>
+                <div class="meta" style="margin-top:12px;font-style:normal">— {{ $t->author }}, {{ $t->role }}</div>
+            </article>
+        @endforeach</section>
+    @endif
+
+    @if ($portfolio->publications->count())
+    <section class="panel pubs" aria-labelledby="c-pub"><h2 class="sh" id="c-pub">Publications</h2>
+        @foreach ($portfolio->publications as $p)
+            <article class="ent"><h3>{{ $p->title }}</h3>
+                <div class="meta">{{ $p->venue }}@if ($p->year) // {{ $p->year }}@endif</div>
+                @if ($p->url)<a class="go" href="{{ $p->url }}" target="_blank" rel="noopener">Read <x-icon name="arrow" :size="18" /><span class="sr-only"> (opens in a new tab)</span></a>@endif</article>
+        @endforeach</section>
+    @endif
+
+    @if ($portfolio->languages->count())
+    <section class="panel langs" aria-labelledby="c-lang"><h2 class="sh" id="c-lang">Languages</h2>
+        <ul class="bars">@foreach ($portfolio->languages as $l)
+            <li><div class="t">{{ $l->name }}<span>{{ $l->proficiency }}</span></div><div class="track" aria-hidden="true"><i style="width:{{ $l->percent }}%"></i></div></li>
+        @endforeach</ul></section>
     @endif
     <footer>&copy; {{ date('Y') }} {{ $portfolio->full_name }}</footer>
 </main>

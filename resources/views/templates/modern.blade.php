@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 @include('partials.portfolio-theme-head')
 <title>{{ $portfolio->full_name }} – Portfolio</title>
+<meta name="description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:title" content="{{ $portfolio->full_name }} – Portfolio">
+<meta property="og:description" content="{{ $portfolio->about ?? 'Professional portfolio of ' . $portfolio->full_name }}">
+<meta property="og:type" content="profile">
+@if ($portfolio->profile_picture)
+<meta property="og:image" content="{{ $portfolio->profile_picture }}">
+@endif
+<meta property="og:url" content="{{ request()->url() }}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -88,6 +97,9 @@ footer{text-align:center;color:var(--mut);font-size:.8125rem;padding:0 20px 32px
         @if ($portfolio->skills->count())<li><a href="#skills">Skills</a></li>@endif
         @if ($portfolio->certificates->count())<li><a href="#certificates">Certificates</a></li>@endif
         @if ($portfolio->projects->count())<li><a href="#projects">Projects</a></li>@endif
+        @if ($portfolio->testimonials->count())<li><a href="#testimonials">Testimonials</a></li>@endif
+        @if ($portfolio->publications->count())<li><a href="#publications">Publications</a></li>@endif
+        @if ($portfolio->languages->count())<li><a href="#languages">Languages</a></li>@endif
     </ul></nav>
     <button type="button" class="tt" id="tt" aria-pressed="false" aria-label="Dark mode" title="Switch between light and dark mode">
         <x-icon name="moon" class="i-moon" /><x-icon name="sun" class="i-sun" />
@@ -158,6 +170,32 @@ footer{text-align:center;color:var(--mut);font-size:.8125rem;padding:0 20px 32px
                 @if ($p->tech)<span class="tag">{{ $p->tech }}</span>@endif
                 @if ($p->url)<a class="go" href="{{ $p->url }}" target="_blank" rel="noopener">View project <x-icon name="external" :size="16" /><span class="sr-only"> (opens in a new tab)</span></a>@endif</article>
         @endforeach</div></section>
+    @endif
+
+    @if ($portfolio->testimonials->count())
+    <section class="glass sec" id="testimonials" aria-labelledby="h-test"><h2 id="h-test">Testimonials</h2>
+        <div class="tl">@foreach ($portfolio->testimonials as $t)
+            <article class="card" style="font-style:italic">
+                <p style="margin:0;font-size:1.0625rem">"{{ $t->quote }}"</p>
+                <div class="meta" style="margin-top:12px;font-style:normal">— {{ $t->author }}, {{ $t->role }}</div>
+            </article>
+        @endforeach</div></section>
+    @endif
+
+    @if ($portfolio->publications->count())
+    <section class="glass sec" id="publications" aria-labelledby="h-pub"><h2 id="h-pub">Publications</h2>
+        <div class="tl">@foreach ($portfolio->publications as $p)
+            <article class="card"><h3>{{ $p->title }}</h3>
+                <div class="meta">{{ $p->venue }}@if ($p->year) &middot; {{ $p->year }}@endif</div>
+                @if ($p->url)<a class="go" href="{{ $p->url }}" target="_blank" rel="noopener">Read <x-icon name="external" :size="16" /><span class="sr-only"> (opens in a new tab)</span></a>@endif</article>
+        @endforeach</div></section>
+    @endif
+
+    @if ($portfolio->languages->count())
+    <section class="glass sec" id="languages" aria-labelledby="h-lang"><h2 id="h-lang">Languages</h2>
+        <ul class="skills">@foreach ($portfolio->languages as $l)
+            <li><div class="t">{{ $l->name }}<span>{{ $l->proficiency }}</span></div><div class="track" aria-hidden="true"><i style="width:{{ $l->percent }}%"></i></div></li>
+        @endforeach</ul></section>
     @endif
 </main>
 <footer>&copy; {{ date('Y') }} {{ $portfolio->full_name }}</footer>

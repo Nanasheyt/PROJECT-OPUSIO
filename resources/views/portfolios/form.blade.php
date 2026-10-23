@@ -3,11 +3,14 @@
     $editing = $portfolio->exists;
     $topFields = ['full_name', 'job_title', 'email', 'phone', 'address', 'about', 'profile_picture'];
     $sections = [
-        'education'  => ['Education',                 'Add education',  'cap'],
-        'skills'     => ['Skills',                    'Add skill',      'zap'],
-        'projects'   => ['Projects',                  'Add project',    'folder'],
-        'experience' => ['Work experience',           'Add experience', 'briefcase'],
-        'links'      => ['Social media and websites', 'Add link',       'link'],
+        'education'      => ['Education',                 'Add education',  'cap'],
+        'skills'         => ['Skills',                    'Add skill',      'zap'],
+        'projects'       => ['Projects',                  'Add project',    'folder'],
+        'experience'     => ['Work experience',           'Add experience', 'briefcase'],
+        'testimonials'   => ['Testimonials',              'Add testimonial', 'message-circle'],
+        'publications'   => ['Publications',              'Add publication', 'book-open'],
+        'languages'      => ['Languages',                 'Add language', 'globe'],
+        'links'          => ['Social media and websites', 'Add link',       'link'],
     ];
 @endphp
 @section('title', $editing ? 'Edit Portfolio' : 'Create Portfolio')
@@ -147,20 +150,26 @@ input.sr:focus-visible + label.btn{outline:3px solid var(--ring);outline-offset:
     const X = '<svg class="ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
 
     const cfg = {
-        education:  { noun: 'education',  fields: [
+        education:      { noun: 'education',      fields: [
             {n:'school', l:'School or university', req:1, ac:'organization'}, {n:'degree', l:'Degree or course', req:1},
             {n:'start_year', l:'Start year'}, {n:'end_year', l:'End year', hint:'Or write "Present"'},
             {n:'description', l:'Details', type:'textarea', hint:'Optional'}]},
-        skills:     { noun: 'skill',      fields: [
+        skills:         { noun: 'skill',          fields: [
             {n:'name', l:'Skill', req:1}, {n:'level', l:'Level', type:'select', options:levels, def:'Intermediate'}]},
-        projects:   { noun: 'project',    fields: [
+        projects:       { noun: 'project',        fields: [
             {n:'title', l:'Project title', req:1}, {n:'tech', l:'Technologies used'}, {n:'url', l:'Project link', hint:'Optional, for example github.com/you/project'},
             {n:'description', l:'Description', type:'textarea'}]},
-        experience: { noun: 'experience', fields: [
+        experience:     { noun: 'experience',     fields: [
             {n:'company', l:'Company', req:1}, {n:'position', l:'Position', req:1},
             {n:'start_date', l:'Start', hint:'For example: Jan 2023'}, {n:'end_date', l:'End', hint:'Or write "Present"'},
             {n:'description', l:'Responsibilities and achievements', type:'textarea'}]},
-        links:      { noun: 'link',       fields: [
+        testimonials:   { noun: 'testimonial',    fields: [
+            {n:'quote', l:'Quote', req:1, type:'textarea'}, {n:'author', l:'Author name', req:1}, {n:'role', l:'Role / Company', req:1}]},
+        publications:   { noun: 'publication',    fields: [
+            {n:'title', l:'Title', req:1}, {n:'venue', l:'Venue / Journal', req:1}, {n:'year', l:'Year'}, {n:'url', l:'URL', hint:'Optional, for example doi.org/...'}]},
+        languages:      { noun: 'language',       fields: [
+            {n:'name', l:'Language', req:1}, {n:'proficiency', l:'Proficiency', type:'select', options:@json(array_keys(\App\Models\Language::PROFICIENCIES)), def:'Professional'}, {n:'percent', l:'Proficiency %', hint:'Optional (0-100)'}]},
+        links:          { noun: 'link',           fields: [
             {n:'platform', l:'Platform', type:'select', options:platforms, def:'GitHub'}, {n:'url', l:'URL', req:1, hint:'For example: github.com/yourname'}]},
     };
 
